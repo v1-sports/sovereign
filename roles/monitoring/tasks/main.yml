@@ -1,6 +1,2 @@
-- import_tasks: monit.yml
-  tags: monit
-- import_tasks: logwatch.yml
-  tags: logwatch
-- import_tasks: collectd.yml
-  tags: collectd
+- import_tasks: telegraf.yml
+  tags: telegraf

@@ -1,0 +1,20 @@
+- name: Download telegraf
+  get_url:
+      url: https://dl.influxdata.com/telegraf/releases/telegraf_{{telegraf_version}}.deb
+      dest: /tmp/telegraf.deb
+      mode: '0440'
+  tags:
+      - dependencies
+
+- name: Install telegraf
+  command: dpgk -i /tmp/telegraf.deb
+  register: telegraf_check_deb
+  failed_when: telegraf_check_deb.rc > 1
+  changed_when: telegraf_check_deb.rc == 1
+
+- name: Copy collectd configuration file into place
+  template: src=etc_telegraf_telegraf.conf.j2 dest=/etc/telegraf/telegraf.conf
+  notify: restart telegraf
+
+- name: Ensure telegraf is started
+  service: name=telegraf state=started
