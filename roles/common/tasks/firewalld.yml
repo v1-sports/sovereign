@@ -1,0 +1,22 @@
+---
+
+- name: Install firewalld
+  apt: pkg=firewalld state=present
+  tags:
+    - dependencies
+    - firewalld
+
+
+- name: Set firewall rules for docker swarm
+  command:  firewall-cmd --zone=internal {{ item }}
+  with_items:
+    - '--zone=internal --add-interface=eth1 --permanent'
+    - '--zone=internal --add-port=2376/tcp --add-port=2377/tcp --permanent'
+    - '--zone=internal --add-port=7496/tcp --add-port=7496/udp --permanent'
+    - '--zone=internal --add-port=7946/tcp --add-port=7946/udp --permanent'
+    - '--zone=internal --add-port=4789/udp --permanent'
+    - '--zone=internal --add-port=50/udp --add-port=50/tcp --permanent'
+    - '--zone=internal --add-service="ipsec" --permanent'
+    - '--zone=internal --add-masquerade --permanent'
+  notify: restart firewalld
+  tags: firewalld

@@ -4,9 +4,9 @@
 ################################################################################
 
 # common
-domain: (required)
-main_user_name: (required)
-organization: (required)
+domain: v1sports.com
+main_user_name: ubuntu
+organization: v1sports
 
 # admin email
 # fail2ban reports will be sent to this address
@@ -58,3 +58,12 @@ openvpn_clients:
   - laptop
   - phone
   - tablet
+
+#swap
+swap_file_path: /swapfile
+swap_file_size: 1G
+swappiness: 1
+
+
+#ssh 
+ansible_ssh_private_key_file: ./private_keys/vos-devs.pem

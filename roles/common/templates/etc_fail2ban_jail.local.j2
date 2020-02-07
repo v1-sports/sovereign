@@ -1,6 +1,14 @@
 [DEFAULT]
 ignoreip  = 127.0.0.1 {{ ansible_default_ipv4.address }} {{ ' '.join(friendly_networks) }}
+# "bantime" is the number of seconds that a host is banned.
 bantime   = 86400
+#bantime  = 20m
+# A host is banned if it has generated "maxretry" during the last "findtime"
+# seconds.
+findtime  = 13m
+# "maxretry" is the number of failures before a host get banned.
+maxretry = 4
+
 destemail = {{ admin_email }}
 banaction = iptables-multiport
 action    = %(action_)s
@@ -21,11 +29,11 @@ enabled   = true
 enabled = true
 
 [postfix]
-enabled  = true
+enabled  = false
 maxretry = 1
 
 [dovecot-pop3imap]
-enabled = true
+enabled = false
 filter = dovecot-pop3imap
 action = iptables-multiport[name=dovecot-pop3imap, port="pop3,imap,993,995", protocol=tcp]
 logpath = /var/log/mail.log

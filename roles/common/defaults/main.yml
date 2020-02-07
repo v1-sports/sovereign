@@ -2,7 +2,7 @@ common_timezone: 'Etc/UTC'
 admin_email: "{{ main_user_name }}@{{ domain }}"
 main_user_shell: "/bin/bash"
 friendly_networks:
-  - ""
+  - "10.132.0.0/16"
 
 # encfs
 secret_root: '{{ inventory_dir | realpath }}'
@@ -12,7 +12,7 @@ encfs_password: "{{ lookup('password', secret + '/' + 'encfs_password', length=3
 
 
 # let's encrypt
-letsencrypt_server: "https://acme-v01.api.letsencrypt.org/directory"
+letsencrypt_server: "https://acme-v02.api.letsencrypt.org/directory"
 
 # ssh
 kex_algorithms: "diffie-hellman-group-exchange-sha256"

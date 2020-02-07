@@ -2,21 +2,21 @@
 # This is the top-level playbook that defines our entire infrastructure.
 
 - hosts: all
-  user: deploy
-  become: True
+  user: root
+  become: False
   gather_facts: True
 
   roles:
     - common
-    - mailserver
-    - webmail
-    - blog
-    - ircbouncer
-    - xmpp
-    - owncloud
-    - vpn
-    - tarsnap
-    - news
-    - git
-    - readlater
+    #- mailserver
+    #- webmail
+    #- blog
+    #- ircbouncer
+    #- xmpp
+    #- owncloud
+    #- vpn
+    #- tarsnap
+    #- news
+    #- git
+    #- readlater
     - monitoring  # Monitoring role should be last. See roles/monitoring/README.md
