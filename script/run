@@ -1,0 +1,3 @@
+#!/bin/bash
+echo "sudo docker run --rm -v $(pwd):/app -w /app -e ANSIBLE_HOST_KEY_CHECKING=false williamyeh/ansible:alpine3 ansible-playbook -i ./hosts site.yml"
+sudo docker run --rm -v $(pwd):/app -w /app -e ANSIBLE_HOST_KEY_CHECKING=false williamyeh/ansible:alpine3 ansible-playbook -i ./hosts site.yml
