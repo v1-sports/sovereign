@@ -12,6 +12,6 @@
 
 - name: Set authorized key for main user
   authorized_key:
-      user: {{ main_user_name }}
+      user: "{{ main_user_name }}"
       state: present
       key: "{{ lookup('file', './authorized_keys/vos-devs.pub') }}"

@@ -1,5 +1,8 @@
+---
 - name: Install security-related packages
-  apt: pkg=[u'fail2ban', u'whois' ,u'lynis', u'rkhunter'] state=present
+  apt:
+    pkg: [u'fail2ban', u'whois' ,u'lynis', u'rkhunter']
+    state: present
   tags:
     - dependencies
 
