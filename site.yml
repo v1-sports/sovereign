@@ -20,3 +20,14 @@
     #- git
     #- readlater
     - monitoring  # Monitoring role should be last. See roles/monitoring/README.md
+
+- hosts: ingress
+  user: root
+  become: False
+  gather_facts: True
+
+  roles:
+    - common
+    - role: monitoring
+      vars:
+        use_haproxy: True
