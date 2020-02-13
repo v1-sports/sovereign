@@ -4,17 +4,30 @@
       dest: /tmp/telegraf.deb
       mode: '0440'
   tags:
+      - telegraf
       - dependencies
 
 - name: Install telegraf
-  command: dpgk -i /tmp/telegraf.deb
+  command: dpkg -i /tmp/telegraf.deb
   register: telegraf_check_deb
   failed_when: telegraf_check_deb.rc > 1
   changed_when: telegraf_check_deb.rc == 1
 
-- name: Copy collectd configuration file into place
+- name: Copy telegraf configuration file into place
   template: src=etc_telegraf_telegraf.conf.j2 dest=/etc/telegraf/telegraf.conf
   notify: restart telegraf
+
+- name: Copy telegraf haproxy configuration file into place
+  template: src=etc_telegraf_telegraf_d_haproxy.conf.j2 dest=/etc/telegraf/telegraf.d/haproxy.conf
+  notify: restart telegraf
+  when: use_haproxy == True
+
+- name: Copy telegraf ssl cert x509 configuration file
+  template: src=etc_telegraf_telegraf_d_x509.conf.j2 dest=/etc/telegraf/telegraf.d/x509.conf
+  notify: restart telegraf
+  when: use_haproxy == True
+
+
 
 - name: Ensure telegraf is started
   service: name=telegraf state=started
